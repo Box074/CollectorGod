@@ -28,12 +28,15 @@ namespace CollectorGod
             if (go != null)
             {
                 GameObject g = Instantiate(go);
+                g.transform.position = transform.position;
+                Modding.Logger.Log("Spawn: " + g.name);
+                g.SetActive(true);
                 HealthManager hm = g.GetComponent<HealthManager>();
                 if (hm != null)
                 {
                     hm.hp = hp;
                 }
-                g.SetActive(true);
+                
             }
 
             yield return new WaitForSeconds(1.5f);
@@ -42,7 +45,7 @@ namespace CollectorGod
         bool b = false;
         void DoTouch(GameObject go)
         {
-            if (go.layer == (int)GlobalEnums.PhysLayers.TERRAIN && !b && !YBreak)
+            if ((go.layer == (int)GlobalEnums.PhysLayers.TERRAIN || go.transform.root.gameObject.name == "Knight") && !b && !YBreak)
             {
                 b = true;
                 StartCoroutine(DoBreak());
@@ -64,7 +67,7 @@ namespace CollectorGod
         }
         void Start()
         {
-            col.enabled = true;
+            
             sj = GetComponent<SpawnJarControl>();
             sj.StopAllCoroutines();
             body = GetComponent<Rigidbody2D>();

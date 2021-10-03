@@ -27,7 +27,7 @@ namespace CollectorGod
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
         {
-            foreach(var v in UnityEngine.Object.FindObjectsOfType<GameObject>().Where(x => x.name.Contains("Jar Collector")))
+            foreach(var v in UnityEngine.Object.FindObjectsOfType<GameObject>().Where(x => x.name == "Jar Collector"))
             {
                 if (v.GetComponent<Collector>() == null) v.AddComponent<Collector>();
             }
